@@ -138,11 +138,8 @@ canvas{
 
     <p>
         I know I hurt you and I regret it deeply.<br><br>
-
         Sorry Bhumika nitho ala matladinanduku; naadhe thappu ala matladadam.
-        Kani oka sari naa side nunchi alochinchu. Nenu yeppudu girls tho matladaledhu
-        andhuke naki nitho matladadam raadhu.<br><br>
-
+        Kani oka sari naa side nunchi alochinchu.
         Naatho yevaru antha manchiga matladaledhu,
         nuvvu ala ane sariki feel ayya anthe.
     </p>
@@ -158,11 +155,11 @@ canvas{
 </div>
 
 <script>
-/* ===== SETTINGS ===== */
-const correctPassword="1126";  
+/* SETTINGS */
+const correctPassword="1126";
 const herName="Bhumika ❤️";
 
-/* ===== PASSWORD SYSTEM ===== */
+/* PASSWORD SYSTEM */
 let enteredPin="";
 
 function press(num){
@@ -191,7 +188,7 @@ function checkPassword(){
     }
 }
 
-/* ===== TYPING NAME ===== */
+/* TYPING NAME */
 function startTyping(){
     let i=0;
     const element=document.getElementById("nameTyping");
@@ -206,7 +203,7 @@ function startTyping(){
     type();
 }
 
-/* ===== FIXED NO BUTTON ===== */
+/* FIXED NO BUTTON */
 function moveButton() {
     const btn = document.getElementById("noBtn");
     const container = document.querySelector(".buttons");
@@ -218,7 +215,7 @@ function moveButton() {
     btn.style.top = Math.random() * maxY + "px";
 }
 
-/* ===== FIREWORKS ===== */
+/* FIREWORKS */
 const canvas=document.getElementById("fireworks");
 const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;
@@ -256,14 +253,21 @@ function updateParticles(){
 }
 
 function startFireworks(){
-    setInterval(createFirework,600);
-    setInterval(updateParticles,20);
-    setTimeout(()=>{
+    const fireworkInterval = setInterval(createFirework, 500);
+    const updateInterval = setInterval(updateParticles, 20);
+
+    setTimeout(() => {
+        clearInterval(fireworkInterval);
+        clearInterval(updateInterval);
         alert("Thank you for forgiving me ❤️ I promise I won’t hurt you again.");
-    },1000);
+    }, 3000);
 }
 
-/* ===== 24 HOUR EXPIRY SYSTEM ===== */
+function yesClicked(){
+    startFireworks();
+}
+
+/* 24 HOUR EXPIRY */
 const EXPIRY_TIME = 24 * 60 * 60 * 1000;
 const STORAGE_KEY = "special_page_timer";
 
