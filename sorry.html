@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Someone Special ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    overflow:hidden;
+    color:white;
+    transition:0.5s;
+}
+
+/* LOCK SCREEN */
+.lock-screen{text-align:center;}
+
+.pin-display{
+    font-size:30px;
+    letter-spacing:10px;
+    margin:20px 0;
+}
+
+.numpad{
+    display:grid;
+    grid-template-columns:repeat(3,70px);
+    gap:15px;
+    justify-content:center;
+}
+
+.numpad button{
+    height:70px;
+    border:none;
+    border-radius:15px;
+    font-size:20px;
+    background:rgba(255,255,255,0.2);
+    color:white;
+    cursor:pointer;
+}
+
+/* MAIN CARD */
+.card{
+    display:none;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
+    padding:50px;
+    width:90%;
+    max-width:500px;
+    text-align:center;
+    box-shadow:0 15px 35px rgba(0,0,0,0.3);
+}
+
+.typing-name{
+    font-size:30px;
+    font-weight:700;
+    margin-bottom:15px;
+    text-shadow:0 0 10px #fff,0 0 20px #ff416c;
+}
+
+.buttons{
+    margin-top:30px;
+    position:relative;
+    height:120px;
+}
+
+.card button{
+    padding:12px 25px;
+    border:none;
+    border-radius:30px;
+    font-size:15px;
+    cursor:pointer;
+    position:absolute;
+}
+
+#yesBtn{
+    left:25%;
+    background:linear-gradient(45deg,#00c9ff,#92fe9d);
+    color:black;
+}
+
+#noBtn{
+    left:55%;
+    background:linear-gradient(45deg,#ff416c,#ff4b2b);
+    color:white;
+}
+
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    pointer-events:none;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="fireworks"></canvas>
+
+<!-- LOCK SCREEN -->
+<div class="lock-screen" id="lockScreen">
+    <h2>Enter The Special Date 💕</h2>
+    <p>(Hint: Your Birthday 🎂)</p>
+
+    <div class="pin-display" id="pinDisplay">----</div>
+
+    <div class="numpad">
+        <button onclick="press(1)">1</button>
+        <button onclick="press(2)">2</button>
+        <button onclick="press(3)">3</button>
+        <button onclick="press(4)">4</button>
+        <button onclick="press(5)">5</button>
+        <button onclick="press(6)">6</button>
+        <button onclick="press(7)">7</button>
+        <button onclick="press(8)">8</button>
+        <button onclick="press(9)">9</button>
+        <button onclick="clearPin()">⌫</button>
+        <button onclick="press(0)">0</button>
+        <button onclick="clearAll()">C</button>
+    </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="card" id="mainContent">
+    <div class="typing-name" id="nameTyping"></div>
+
+    <h1>I’m Truly Sorry ❤️</h1>
+    <p>
+        I know I hurt you and I regret it deeply.  
+        sorry Bhumika nitho ala matladinanduku; naadhe thappu ala matladadm
+        kani oka sari naa side nunchi alochinchu . nenu yeppudu girls tho matladaledhu
+        andhuke naki nitho matladadam raadhu.nani yevaru supply clear chesuko mee parents
+        gurinchi aalochinchu ana ledhu ; breakfast chai lekapothe health chedepothadi ani cheppaledhu.
+        naatho yevaru antha manchiga matladaledhu , nuvvu ala ane sariki feel ayya anthe.
+        
+        
+       <h2> Please forgive me and mari mundhu madhiri vudhama plz.</h2>
+    </p>
+
+    <div class="buttons">
+        <button id="yesBtn" onclick="yesClicked()">Yes 😍</button>
+        <button id="noBtn" onmouseover="moveButton()">No 😭</button>
+    </div>
+</div>
+
+<script>
+const correctPassword="1126";
+const herName="Bhumika...";
+
+let enteredPin="";
+
+function press(num){
+    if(enteredPin.length<8){
+        enteredPin+=num;
+        updateDisplay();
+        checkPassword();
+    }
+}
+
+function clearPin(){enteredPin=enteredPin.slice(0,-1);updateDisplay();}
+function clearAll(){enteredPin="";updateDisplay();}
+
+function updateDisplay(){
+    document.getElementById("pinDisplay").innerText=
+        "•".repeat(enteredPin.length).padEnd(4,"-");
+}
+
+function checkPassword(){
+    if(enteredPin===correctPassword){
+        document.getElementById("lockScreen").style.display="none";
+        document.getElementById("mainContent").style.display="block";
+        document.body.style.background=
+            "linear-gradient(135deg,#ff758c,#ff7eb3,#ffb199)";
+        startTyping();
+    }
+}
+
+function startTyping(){
+    let i=0;
+    function type(){
+        if(i<herName.length){
+            document.getElementById("nameTyping").innerHTML+=herName[i];
+            i++;
+            setTimeout(type,150);
+        }
+    }
+    type();
+}
+
+function moveButton(){
+    let btn=document.getElementById("noBtn");
+    btn.style.left=Math.random()*(window.innerWidth-100)+"px";
+    btn.style.top=Math.random()*(window.innerHeight-50)+"px";
+}
+
+function yesClicked(){
+    startFireworks();
+    setTimeout(()=>{
+        alert("Thank you for forgiving me ❤️ I promise i wont hurt you again.");
+    },1000);
+}
+
+/* FIREWORKS */
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+
+function createFirework(){
+    let x=Math.random()*canvas.width;
+    let y=Math.random()*canvas.height/2;
+    let colors=["#ff4b2b","#ff416c","#00c9ff","#92fe9d","#ffffff"];
+    for(let i=0;i<70;i++){
+        particles.push({
+            x,y,
+            angle:Math.random()*2*Math.PI,
+            speed:Math.random()*5+2,
+            life:80,
+            color:colors[Math.floor(Math.random()*colors.length)]
+        });
+    }
+}
+
+function updateParticles(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach((p,i)=>{
+        p.x+=Math.cos(p.angle)*p.speed;
+        p.y+=Math.sin(p.angle)*p.speed;
+        p.life--;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,2,0,Math.PI*2);
+        ctx.fillStyle=p.color;
+        ctx.fill();
+        if(p.life<=0)particles.splice(i,1);
+    });
+}
+
+function startFireworks(){
+    setInterval(createFirework,600);
+    setInterval(updateParticles,20);
+}
+</script>
+
+</body>
+</html>
