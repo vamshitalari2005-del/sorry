@@ -52,7 +52,7 @@ body{
     background:rgba(255,255,255,0.15);
     backdrop-filter:blur(15px);
     border-radius:20px;
-    padding:50px;
+    padding:40px;
     width:90%;
     max-width:500px;
     text-align:center;
@@ -60,7 +60,7 @@ body{
 }
 
 .typing-name{
-    font-size:30px;
+    font-size:28px;
     font-weight:700;
     margin-bottom:15px;
     text-shadow:0 0 10px #fff,0 0 20px #ff416c;
@@ -79,6 +79,7 @@ body{
     font-size:15px;
     cursor:pointer;
     position:absolute;
+    transition:all 0.3s ease;
 }
 
 #yesBtn{
@@ -134,17 +135,21 @@ canvas{
     <div class="typing-name" id="nameTyping"></div>
 
     <h1>I’m Truly Sorry ❤️</h1>
+
     <p>
-        I know I hurt you and I regret it deeply.  
-        sorry Bhumika nitho ala matladinanduku; naadhe thappu ala matladadm
-        kani oka sari naa side nunchi alochinchu . nenu yeppudu girls tho matladaledhu
-        andhuke naki nitho matladadam raadhu.nani yevaru supply clear chesuko mee parents
-        gurinchi aalochinchu ana ledhu ; breakfast chai lekapothe health chedepothadi ani cheppaledhu.
-        naatho yevaru antha manchiga matladaledhu , nuvvu ala ane sariki feel ayya anthe.
-        
-        
-       <h2> Please forgive me and mari mundhu madhiri vudhama plz.</h2>
+        I know I hurt you and I regret it deeply.<br><br>
+
+        Sorry Bhumika nitho ala matladinanduku; naadhe thappu ala matladadam.
+        Kani oka sari naa side nunchi alochinchu. Nenu yeppudu girls tho matladaledhu
+        andhuke naki nitho matladadam raadhu.<br><br>
+
+        Naatho yevaru antha manchiga matladaledhu,
+        nuvvu ala ane sariki feel ayya anthe.
     </p>
+
+    <h2 style="margin-top:20px;">
+        Please forgive me and mari mundhu madhiri vudhama plz ❤️
+    </h2>
 
     <div class="buttons">
         <button id="yesBtn" onclick="yesClicked()">Yes 😍</button>
@@ -153,9 +158,11 @@ canvas{
 </div>
 
 <script>
-const correctPassword="1126";
-const herName="Bhumika...";
+/* ===== SETTINGS ===== */
+const correctPassword="1126";  
+const herName="Bhumika ❤️";
 
+/* ===== PASSWORD SYSTEM ===== */
 let enteredPin="";
 
 function press(num){
@@ -184,32 +191,34 @@ function checkPassword(){
     }
 }
 
+/* ===== TYPING NAME ===== */
 function startTyping(){
     let i=0;
+    const element=document.getElementById("nameTyping");
+    element.innerHTML="";
     function type(){
         if(i<herName.length){
-            document.getElementById("nameTyping").innerHTML+=herName[i];
+            element.innerHTML+=herName[i];
             i++;
-            setTimeout(type,150);
+            setTimeout(type,120);
         }
     }
     type();
 }
 
-function moveButton(){
-    let btn=document.getElementById("noBtn");
-    btn.style.left=Math.random()*(window.innerWidth-100)+"px";
-    btn.style.top=Math.random()*(window.innerHeight-50)+"px";
+/* ===== FIXED NO BUTTON ===== */
+function moveButton() {
+    const btn = document.getElementById("noBtn");
+    const container = document.querySelector(".buttons");
+
+    const maxX = container.clientWidth - btn.offsetWidth;
+    const maxY = container.clientHeight - btn.offsetHeight;
+
+    btn.style.left = Math.random() * maxX + "px";
+    btn.style.top = Math.random() * maxY + "px";
 }
 
-function yesClicked(){
-    startFireworks();
-    setTimeout(()=>{
-        alert("Thank you for forgiving me ❤️ I promise i wont hurt you again.");
-    },1000);
-}
-
-/* FIREWORKS */
+/* ===== FIREWORKS ===== */
 const canvas=document.getElementById("fireworks");
 const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;
@@ -249,7 +258,45 @@ function updateParticles(){
 function startFireworks(){
     setInterval(createFirework,600);
     setInterval(updateParticles,20);
+    setTimeout(()=>{
+        alert("Thank you for forgiving me ❤️ I promise I won’t hurt you again.");
+    },1000);
 }
+
+/* ===== 24 HOUR EXPIRY SYSTEM ===== */
+const EXPIRY_TIME = 24 * 60 * 60 * 1000;
+const STORAGE_KEY = "special_page_timer";
+
+function checkPageExpiry() {
+    const now = new Date().getTime();
+    let firstVisit = localStorage.getItem(STORAGE_KEY);
+
+    if (!firstVisit) {
+        localStorage.setItem(STORAGE_KEY, now);
+        return;
+    }
+
+    if (now - parseInt(firstVisit) > EXPIRY_TIME) {
+        document.body.innerHTML = `
+        <div style="
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            flex-direction:column;
+            background:black;
+            color:white;
+            font-family:Poppins,sans-serif;
+            text-align:center;">
+            <h1>⏳ This Page Has Expired</h1>
+            <p style="margin-top:15px;">
+            This special page was available only for 24 hours ❤️
+            </p>
+        </div>`;
+    }
+}
+
+checkPageExpiry();
 </script>
 
 </body>
