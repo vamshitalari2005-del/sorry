@@ -269,39 +269,6 @@ function yesClicked(){
     startFireworks();
 }
 
-/* 24 HOUR EXPIRY */
-const EXPIRY_TIME = 24 * 60 * 60 * 1000;
-const STORAGE_KEY = "special_page_timer";
-
-function checkPageExpiry() {
-    const now = new Date().getTime();
-    let firstVisit = localStorage.getItem(STORAGE_KEY);
-
-    if (!firstVisit) {
-        localStorage.setItem(STORAGE_KEY, now);
-        return;
-    }
-
-    if (now - parseInt(firstVisit) > EXPIRY_TIME) {
-        document.body.innerHTML = `
-        <div style="
-            height:100vh;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            flex-direction:column;
-            background:black;
-            color:white;
-            font-family:Poppins,sans-serif;
-            text-align:center;">
-            <h1>⏳ This Page Has Expired</h1>
-            <p style="margin-top:15px;">
-            This special page was available only for 24 hours ❤️
-            </p>
-        </div>`;
-    }
-}
-
 checkPageExpiry();
 </script>
 
