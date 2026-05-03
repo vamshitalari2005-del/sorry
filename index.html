@@ -239,35 +239,6 @@ function createFirework(){
         });
     }
 }
-/* 24 HOUR EXPIRY SYSTEM */
-const expiryKey = "specialPageExpiry";
-const now = Date.now();
-const twentyFourHours = 24 * 60 * 60 * 1000;
-
-function checkPageExpiry() {
-    let savedTime = localStorage.getItem(expiryKey);
-
-    if (!savedTime) {
-        localStorage.setItem(expiryKey, now);
-        return false;
-    }
-
-    if (now - savedTime > twentyFourHours) {
-        document.body.innerHTML = `
-            <div class="expired-message">
-                ⏳ This surprise has expired 💔<br><br>
-                Maybe love needs a second chance...
-            </div>
-        `;
-        return true;
-    }
-    return false;
-}
-
-if(checkPageExpiry()) {
-    throw new Error("Page expired");
-}
-
 
 function updateParticles(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
